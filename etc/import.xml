@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+  ~ @copyright   MageSteady (https://www.magesteady.com)
+  ~ @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0 or later
+  ~
+  ~ This file was written by the MageSteady team.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify it
+  ~ under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_ImportExport:etc/import.xsd">
+    <entity name="csp_rules" label="CSP rules" model="MageSteady\CspBackoffice\Model\Import\Rules" behaviorModel="MageSteady\CspBackoffice\Model\Source\Import\Behavior\ReplaceAll"/>
+</config>

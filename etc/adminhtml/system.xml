@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+  ~ @copyright   MageSteady (https://www.magesteady.com)
+  ~ @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0 or later
+  ~
+  ~ This file was written by the MageSteady team.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify it
+  ~ under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="magesteady_csp_backoffice" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Content Security Policy</label>
+            <tab>magesteady</tab>
+            <resource>MageSteady_CspBackoffice::Csp</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable_rules_management" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                    <label>Enable rules management</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[CSP rules defined in MageSteady > Content Security Policy > Rules will replace the ones defined in csp_whitelist.xml files.]]>
+                    </comment>
+                </field>
+                <field id="enable_violation_reports" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>Enable violation reports</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[CSP violation reports will be collected in MageSteady > Content Security Policy > Violation Reports.<br/><strong>Please be aware that this will only work if your website is publicly accessible and has a valid SSL certificate.</strong>]]>
+                    </comment>
+                </field>
+                <field id="history_size" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>History size</label>
+                    <depends>
+                        <field id="enable_violation_reports">1</field>
+                    </depends>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <comment>
+                        <![CDATA[Violation reports history will be cleaned periodically to keep only this number of entries.]]>
+                    </comment>
+                </field>
+                <field id="enable_restrict_mode_adminhtml" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>Enable restrict mode (adminhtml)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[CSP rules will be enforced and external resources that are not listed in your whitelist will be blocked by your visitors' browser.<br><strong>Please ensure you have allowed reCAPTCHA's script if you have it configured, otherwise you won't be able to log in to your backoffice.</strong>]]>
+                    </comment>
+                </field>
+                <field id="enable_restrict_mode_frontend" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                    <label>Enable restrict mode (frontend)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[CSP rules will be enforced and external resources that are not listed in your whitelist will be blocked by your visitors' browser.]]>
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+  ~ @copyright   MageSteady (https://www.magesteady.com)
+  ~ @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0 or later
+  ~
+  ~ This file was written by the MageSteady team.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify it
+  ~ under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <magesteady_csp_backoffice>
+            <general>
+                <enable_rules_management>0</enable_rules_management>
+                <enable_violation_reports>0</enable_violation_reports>
+                <history_size>10000</history_size>
+                <enable_restrict_mode_frontend>0</enable_restrict_mode_frontend>
+                <enable_restrict_mode_adminhtml>0</enable_restrict_mode_adminhtml>
+            </general>
+        </magesteady_csp_backoffice>
+    </default>
+</config>

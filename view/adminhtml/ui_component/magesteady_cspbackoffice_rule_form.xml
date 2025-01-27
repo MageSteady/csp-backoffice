@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<!--
+  ~ @copyright   MageSteady (https://www.magesteady.com)
+  ~ @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0 or later
+  ~
+  ~ This file was written by the MageSteady team.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify it
+  ~ under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  -->
+<!--suppress XmlDefaultAttributeValue -->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">magesteady_cspbackoffice_rule_form.rule_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="MageSteady\CspBackoffice\Block\Adminhtml\Rule\Edit\BackButton"/>
+            <button name="delete" class="MageSteady\CspBackoffice\Block\Adminhtml\Rule\Edit\DeleteButton"/>
+            <button name="save" class="MageSteady\CspBackoffice\Block\Adminhtml\Rule\Edit\SaveButton"/>
+            <button name="save_and_continue" class="MageSteady\CspBackoffice\Block\Adminhtml\Rule\Edit\SaveAndContinueButton"/>
+        </buttons>
+        <namespace>magesteady_cspbackoffice_rule_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>magesteady_cspbackoffice_rule_form.rule_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="rule_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider name="rule_form_data_source" class="MageSteady\CspBackoffice\Model\Rule\DataProvider">
+            <settings>
+                <requestFieldName>rule_id</requestFieldName>
+                <primaryFieldName>rule_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label translate="true">General</label>
+        </settings>
+        <field name="identifier" formElement="input" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Rule</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Identifier</label>
+                <dataScope>identifier</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="storeviews" formElement="multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Rule</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>int</dataType>
+                <tooltip>
+                    <link>https://experienceleague.adobe.com/docs/commerce-admin/start/setup/websites-stores-views.html#scope-settings</link>
+                    <description>What is this?</description>
+                </tooltip>
+                <label translate="true">Store View</label>
+                <dataScope>store_id</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="MageSteady\CspBackoffice\Ui\Component\Listing\Column\Store\Options"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+        <field name="directive" sortOrder="20" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Rule</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Directive</label>
+                <dataScope>directive</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="MageSteady\CspBackoffice\Model\Config\Source\Directive"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="value_type" sortOrder="30" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Rule</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Value type</label>
+                <dataScope>value_type</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="MageSteady\CspBackoffice\Model\Config\Source\ValueType"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="algorithm" sortOrder="40" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Rule</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Algorithm</label>
+                <dataScope>algorithm</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="MageSteady\CspBackoffice\Model\Config\Source\Algorithm"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="value" formElement="textarea" sortOrder="50">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Rule</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Value</label>
+                <dataScope>value</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+    </fieldset>
+</form>

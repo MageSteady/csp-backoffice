@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+  ~ @copyright   MageSteady (https://www.magesteady.com)
+  ~ @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0 or later
+  ~
+  ~ This file was written by the MageSteady team.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify it
+  ~ under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  -->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="magesteady_cspbackoffice_rule" resource="default" engine="innodb" comment="CSP Backoffice Rule Table">
+        <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Rule ID"/>
+        <column name="identifier" nullable="false" xsi:type="varchar" comment="Unique identifier" length="255"/>
+        <column name="directive" nullable="false" xsi:type="varchar" comment="Directive" length="255"/>
+        <column name="value_type" nullable="false" xsi:type="varchar" comment="Value type (host, hash)" length="255"/>
+        <column name="algorithm" nullable="true" xsi:type="varchar" comment="Algorithm (sha256, sha384, sha512)" length="255"/>
+        <column name="value" nullable="false" xsi:type="text" comment="Value"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rule_id"/>
+        </constraint>
+    </table>
+    <table name="magesteady_cspbackoffice_rule_store" resource="default" engine="innodb" comment="CSP Backoffice Rule To Store Linkage Table">
+        <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Rule ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" identity="false" comment="Store ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rule_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CSP_RULE_STORE_RULE_ID_CSP_RULE_RULE_ID" table="magesteady_cspbackoffice_rule_store" column="rule_id" referenceTable="magesteady_cspbackoffice_rule" referenceColumn="rule_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="CSP_RULE_STORE_STORE_ID_STORE_STORE_ID" table="magesteady_cspbackoffice_rule_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <index referenceId="CSP_RULE_STORE_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+    </table>
+    <table name="magesteady_cspbackoffice_violationreport" resource="default" engine="innodb" comment="CSP Backoffice Violation Report Table">
+        <column xsi:type="int" name="violationreport_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Violation report Id"/>
+        <column xsi:type="datetime" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created at"/>
+        <column name="blocked_url" nullable="true" xsi:type="varchar" comment="Blocked URL" length="255"/>
+        <column name="document_url" nullable="true" xsi:type="varchar" comment="Document URL" length="255"/>
+        <column name="effective_directive" nullable="true" xsi:type="varchar" comment="Effective Directive" length="255"/>
+        <column name="json" nullable="false" xsi:type="text" comment="JSON"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="violationreport_id"/>
+        </constraint>
+    </table>
+</schema>

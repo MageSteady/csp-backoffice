@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!--
+  ~ @copyright   MageSteady (https://www.magesteady.com)
+  ~ @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0 or later
+  ~
+  ~ This file was written by the MageSteady team.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify it
+  ~ under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  -->
+<!--suppress XmlDefaultAttributeValue -->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">magesteady_cspbackoffice_violationreport_form.violationreport_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="MageSteady\CspBackoffice\Block\Adminhtml\ViolationReport\Edit\BackButton"/>
+        </buttons>
+        <namespace>magesteady_cspbackoffice_violationreport_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>magesteady_cspbackoffice_violationreport_form.violationreport_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="violationreport_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <dataProvider name="violationreport_form_data_source" class="MageSteady\CspBackoffice\Model\ViolationReport\DataProvider">
+            <settings>
+                <requestFieldName>violationreport_id</requestFieldName>
+                <primaryFieldName>violationreport_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label>General</label>
+        </settings>
+        <field name="created_at" formElement="input" sortOrder="5">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">ViolationReport</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/dynamic-rows/cells/text</elementTmpl>
+                <dataType>text</dataType>
+                <label translate="true">Created At</label>
+                <dataScope>created_at</dataScope>
+            </settings>
+        </field>
+        <field name="blocked_url" formElement="input" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">ViolationReport</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/dynamic-rows/cells/text</elementTmpl>
+                <dataType>text</dataType>
+                <label translate="true">Blocked URL</label>
+                <dataScope>blocked_url</dataScope>
+            </settings>
+        </field>
+        <field name="document_url" formElement="input" sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">ViolationReport</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/dynamic-rows/cells/text</elementTmpl>
+                <dataType>text</dataType>
+                <label translate="true">Document URL</label>
+                <dataScope>document_url</dataScope>
+            </settings>
+        </field>
+        <field name="effective_directive" formElement="input" sortOrder="30">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">ViolationReport</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/dynamic-rows/cells/text</elementTmpl>
+                <dataType>text</dataType>
+                <label translate="true">Effective Directive</label>
+                <dataScope>effective_directive</dataScope>
+            </settings>
+        </field>
+        <field name="json" formElement="input" sortOrder="50">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">ViolationReport</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>MageSteady_CspBackoffice/form/element/html</elementTmpl>
+                <dataType>text</dataType>
+                <label translate="true">JSON</label>
+                <dataScope>json</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+</form>

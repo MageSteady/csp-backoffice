@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!--
+  ~ @copyright   MageSteady (https://www.magesteady.com)
+  ~ @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0 or later
+  ~
+  ~ This file was written by the MageSteady team.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify it
+  ~ under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="MageSteady\CspBackoffice\Api\RuleRepositoryInterface" type="MageSteady\CspBackoffice\Model\RuleRepository"/>
+    <preference for="MageSteady\CspBackoffice\Api\Data\RuleInterface" type="MageSteady\CspBackoffice\Model\Rule"/>
+    <preference for="MageSteady\CspBackoffice\Api\Data\RuleSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="magesteady_cspbackoffice_violationreport_listing_data_source" xsi:type="string">MageSteady\CspBackoffice\Model\ResourceModel\ViolationReport\Grid\Collection</item>
+                <item name="magesteady_cspbackoffice_rule_listing_data_source" xsi:type="string">MageSteady\CspBackoffice\Model\ResourceModel\Rule\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="MageSteady\CspBackoffice\Api\Data\RuleInterface" xsi:type="string">MageSteady\CspBackoffice\Api\RuleRepositoryInterface</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="MageSteady\CspBackoffice\Api\Data\RuleInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">magesteady_cspbackoffice_rule</item>
+                    <item name="identifierField" xsi:type="string">rule_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="MageSteady\CspBackoffice\Model\ResourceModel\Rule\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">magesteady_cspbackoffice_rule</argument>
+            <argument name="resourceModel" xsi:type="string">MageSteady\CspBackoffice\Model\ResourceModel\Rule</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="MageSteady\CspBackoffice\Api\Data\RuleInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="storeReader" xsi:type="string">MageSteady\CspBackoffice\Model\ResourceModel\Rule\Relation\Store\ReadHandler</item>
+                    </item>
+                    <item name="create" xsi:type="array">
+                        <item name="storeCreator" xsi:type="string">MageSteady\CspBackoffice\Model\ResourceModel\Rule\Relation\Store\SaveHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="storeUpdater" xsi:type="string">MageSteady\CspBackoffice\Model\ResourceModel\Rule\Relation\Store\SaveHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="MageSteady\CspBackoffice\Api\Data\RuleInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="MageSteady\CspBackoffice\Model\Api\SearchCriteria\CollectionProcessor\RuleFilterProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor">
+        <arguments>
+            <argument name="customFilters" xsi:type="array">
+                <item name="store_id" xsi:type="object">MageSteady\CspBackoffice\Model\Api\SearchCriteria\CollectionProcessor\FilterProcessor\RuleStoreFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MageSteady\CspBackoffice\Model\Api\SearchCriteria\RuleCollectionProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">MageSteady\CspBackoffice\Model\Api\SearchCriteria\CollectionProcessor\RuleFilterProcessor</item>
+                <item name="sorting" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="MageSteady\CspBackoffice\Model\RuleRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">MageSteady\CspBackoffice\Model\Api\SearchCriteria\RuleCollectionProcessor</argument>
+            <argument name="hydrator" xsi:type="object">Magento\Framework\EntityManager\AbstractModelHydrator</argument>
+        </arguments>
+    </type>
+    <virtualType name="MageSteady\CspBackoffice\Model\Collector\CspWhitelistXml\Reader" type="Magento\Csp\Model\Collector\CspWhitelistXml\Reader">
+        <arguments>
+            <argument name="converter" xsi:type="object">MageSteady\CspBackoffice\Model\Collector\CspWhitelistXml\Converter</argument>
+            <argument name="schemaLocator" xsi:type="object">Magento\Csp\Model\Collector\CspWhitelistXml\SchemaLocator</argument>
+            <argument name="fileResolver" xsi:type="object">Magento\Csp\Model\Collector\CspWhitelistXml\FileResolver</argument>
+            <argument name="fileName" xsi:type="string">csp_whitelist.xml</argument>
+        </arguments>
+    </virtualType>
+    <type name="MageSteady\CspBackoffice\Model\Rule\XmlImporter">
+        <arguments>
+            <argument name="xmlReader" xsi:type="object">MageSteady\CspBackoffice\Model\Collector\CspWhitelistXml\Reader</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Csp\Model\CompositePolicyCollector">
+        <arguments>
+            <argument name="collectors" xsi:type="array">
+                <item name="whitelist" xsi:type="object" sortOrder="2">MageSteady\CspBackoffice\Model\Collector\CspWhitelistXmlCollector\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="MageSteady\CspBackoffice\Model\ResourceModel\ViolationReport\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">magesteady_cspbackoffice_violationreport</argument>
+            <argument name="resourceModel" xsi:type="string">MageSteady\CspBackoffice\Model\ResourceModel\ViolationReport\Collection</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\App\Config\ScopeConfigInterface">
+        <plugin name="ForceCspConfigValues" type="MageSteady\CspBackoffice\Plugin\Magento\Framework\ForceCspConfigValues"/>
+    </type>
+</config>
